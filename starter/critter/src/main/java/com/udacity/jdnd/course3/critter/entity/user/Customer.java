@@ -2,21 +2,46 @@ package com.udacity.jdnd.course3.critter.entity.user;
 
 
 import com.udacity.jdnd.course3.critter.entity.pet.Pet;
+import org.hibernate.annotations.Nationalized;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.List;
 
 @Entity
-public class Customer extends User implements Serializable {
+public class Customer {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Nationalized
+    private String name;
     private String phoneNumber;
     private String notes;
 
     @OneToMany(targetEntity = Pet.class, fetch = FetchType.LAZY, mappedBy = "customer", cascade = CascadeType.ALL)
     private List<Pet> pets;
 
+    @OneToOne(targetEntity = User.class)
+    private User user;
+
     public Customer(){}
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+    return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public void addPet(Pet pet) {
         pets.add(pet);
@@ -44,5 +69,13 @@ public class Customer extends User implements Serializable {
 
     public void setPets(List<Pet> pets) {
         this.pets = pets;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

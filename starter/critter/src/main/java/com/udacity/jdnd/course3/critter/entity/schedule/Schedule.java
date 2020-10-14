@@ -13,7 +13,7 @@ import java.util.Set;
 @Entity
 public class Schedule implements Serializable {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @ManyToMany(targetEntity = Employee.class)

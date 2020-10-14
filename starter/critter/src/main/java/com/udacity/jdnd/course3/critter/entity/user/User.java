@@ -2,20 +2,24 @@ package com.udacity.jdnd.course3.critter.entity.user;
 
 import org.hibernate.annotations.Nationalized;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class User {
 
     @Id
     @GeneratedValue
-    private Long id;
+    Long id;
+
     @Nationalized
     private String name;
 
-    public User() {}
+    @OneToOne(targetEntity = Customer.class)
+    private Customer customer;
+
+    @OneToOne(targetEntity = Employee.class)
+    private Employee employee;
+
 
     public User(Long id, String name) {
         this.id = id;
@@ -36,5 +40,21 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 }
